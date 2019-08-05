@@ -5,8 +5,9 @@ import com.example.newsapplication.main.entities.News
 import com.example.newsapplication.main.entities.Source
 import io.reactivex.Single
 import java.net.URL
+import javax.inject.Inject
 
-class MockNewsRepository : NewsRepository {
+class MockNewsRepository @Inject constructor() : NewsRepository {
     override fun getNews(): Single<News> {
         return Single.just(
                 News(
@@ -21,7 +22,7 @@ class MockNewsRepository : NewsRepository {
                                         description = "Electricity master",
                                         title = "Storm",
                                         publishedAt = "1755",
-                                        url = URL(""),
+                                        url = URL("https://www.benjaminFranklinWiki.com"),
                                         urlToImage = null
                                 )
                         ),

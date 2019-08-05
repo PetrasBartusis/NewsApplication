@@ -22,8 +22,9 @@ abstract class NetworkModule private constructor() {
         @DaggerScope(BaseApplication::class)
         fun provideApi(client: OkHttpClient, @IOScheduler scheduler: Scheduler): NewsApi = Retrofit.Builder()
             .baseUrl(BuildConfig.NEWS_API)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(scheduler))
             .build()
             .create(NewsApi::class.java)
 

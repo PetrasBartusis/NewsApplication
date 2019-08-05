@@ -6,15 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapplication.R
 import com.example.newsapplication.utils.activity.showMessage
 import com.example.newsapplication.utils.fragment.ViewModelFragment
+import com.example.newsapplication.utils.images.ImageLoader
 import kotlinx.android.synthetic.main.fragment_news_list.*
+import javax.inject.Inject
 
 class NewsListFragment : ViewModelFragment() {
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private val viewModel by viewModel<NewsListViewModel>()
 
     override val layoutRes = R.layout.fragment_news_list
 
     private val articleAdapter by lazy {
-        ArticleAdapter(onClick = {})
+        ArticleAdapter(onClick = {}, imageLoader = imageLoader)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

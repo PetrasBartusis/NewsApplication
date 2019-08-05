@@ -15,7 +15,8 @@ class ArticleViewHolder(
 ): RecyclerView.ViewHolder(itemView) {
     fun bind(article: Article) {
         itemView.articleTitleTextView.text = article.title
-        itemView.articlePublishDateTextView.text = article.publishedAt
+        itemView.articlePublishDateTextView.text = dateFormatter
+                .getDateTimeFromDateString(article.publishedAt)
         imageLoader.loadImage(itemView.articleImageView, article.urlToImage.toString())
         itemView.setOnClickListener {
             onClick(article)

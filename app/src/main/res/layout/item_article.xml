@@ -29,9 +29,10 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:padding="8dp"
-                tools:text="@tools:sample/lorem" />
+                tools:text="@tools:sample/lorem"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/articlePublishDateTextView"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textSize="12sp"
-                android:padding="8dp"
+                android:padding="4dp"
                 tools:text="@tools:sample/lorem" />
 
         </LinearLayout>

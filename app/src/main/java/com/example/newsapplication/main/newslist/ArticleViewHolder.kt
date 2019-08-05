@@ -11,6 +11,7 @@ class ArticleViewHolder(
 ): RecyclerView.ViewHolder(itemView) {
     fun bind(article: Article) {
         itemView.articleTitleTextView.text = article.title
+        itemView.articlePublishDateTextView.text = article.publishedAt
         itemView.setOnClickListener {
             onClick(article)
         }

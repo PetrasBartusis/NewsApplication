@@ -9,13 +9,41 @@
     app:cardCornerRadius="4dp"
     app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/articleTitleTextView"
-        style="@style/Base.TextAppearance.AppCompat.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="16sp"
-        tools:text="@tools:sample/lorem" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="102dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/articleTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:padding="8dp"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/articlePublishDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="12sp"
+                android:padding="8dp"
+                tools:text="@tools:sample/lorem" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -3,6 +3,7 @@ package com.example.newsapplication.main.newslist
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapplication.R
 import com.example.newsapplication.utils.activity.showMessage
 import com.example.newsapplication.utils.dateformatter.DateFormatter
@@ -11,7 +12,7 @@ import com.example.newsapplication.utils.images.ImageLoader
 import kotlinx.android.synthetic.main.fragment_news_list.*
 import javax.inject.Inject
 
-class NewsListFragment : ViewModelFragment() {
+class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListener {
     @Inject
     lateinit var imageLoader: ImageLoader
 
@@ -33,6 +34,9 @@ class NewsListFragment : ViewModelFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.getArticleList().observe(articleAdapter::setArticleList)
         viewModel.showErrorMessage().observe(requireActivity()::showMessage)
+        viewModel.startRefreshing().observe(::startRefreshing)
+        viewModel.stopRefreshing().observe(::stopRefreshing)
+        swipeRefreshLayout.setOnRefreshListener(this)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = articleAdapter
@@ -44,6 +48,18 @@ class NewsListFragment : ViewModelFragment() {
         toolbar.apply {
             setNavigationIcon(R.drawable.ic_menu)
         }
+    }
+
+    private fun startRefreshing(unit: Unit) {
+        swipeRefreshLayout.isRefreshing = true
+    }
+
+    private fun stopRefreshing(unit: Unit) {
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun onRefresh() {
+        viewModel.onRefreshCalled()
     }
 
     companion object {

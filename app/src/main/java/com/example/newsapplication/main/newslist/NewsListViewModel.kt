@@ -12,16 +12,33 @@ class NewsListViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val articleList = MutableLiveData<List<Article>>()
     private val message = SingleLiveData<String>()
+    private val startRefreshing = MutableLiveData<Unit>()
+    private val stopRefreshing = MutableLiveData<Unit>()
 
     fun getArticleList(): LiveData<List<Article>> = articleList
 
     fun showErrorMessage(): LiveData<String> = message
 
+    fun startRefreshing(): LiveData<Unit> = startRefreshing
+
+    fun stopRefreshing(): LiveData<Unit> = stopRefreshing
+
     override fun onCreated() {
+        startRefreshing.postValue(Unit)
+        loadNewsList()
+    }
+
+    fun onRefreshCalled() {
+        loadNewsList()
+    }
+
+    private fun loadNewsList() {
         getNewsUseCase.getNewsList().subscribe({ news ->
             articleList.postValue(news.articles)
+            stopRefreshing.postValue(Unit)
         }, { error ->
             message.postValue(error.message)
+            stopRefreshing.postValue(Unit)
         }).attachToViewModel()
     }
 }

@@ -1,11 +1,15 @@
 package com.example.newsapplication.app
 
-import android.app.Application
 import com.example.newsapplication.app.plugins.AppPlugin
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 import timber.log.Timber
 import javax.inject.Inject
 
-class BaseApplication : Application() {
+class BaseApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerAppComponent.builder().create(this)
+
     @Inject
     fun initialize(
         plugins: Set<@JvmSuppressWildcards AppPlugin>

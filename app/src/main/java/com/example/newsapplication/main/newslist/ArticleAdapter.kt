@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapplication.R
 import com.example.newsapplication.main.entities.Article
+import com.example.newsapplication.utils.dateformatter.DateFormatter
 import com.example.newsapplication.utils.images.ImageLoader
 
 class ArticleAdapter(
-    private val onClick: (article: Article) -> Unit,
-    private val imageLoader: ImageLoader
+        private val onClick: (article: Article) -> Unit,
+        private val imageLoader: ImageLoader,
+        private val dateFormatter: DateFormatter
 ) : RecyclerView.Adapter<ArticleViewHolder>() {
     private var articleList = mutableListOf<Article>()
 
@@ -20,12 +22,13 @@ class ArticleAdapter(
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ArticleViewHolder =
-        ArticleViewHolder(
-            itemView = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_article, viewGroup, false),
-            onClick = onClick,
-            imageLoader = imageLoader
-        )
+            ArticleViewHolder(
+                    itemView = LayoutInflater.from(viewGroup.context)
+                            .inflate(R.layout.item_article, viewGroup, false),
+                    onClick = onClick,
+                    imageLoader = imageLoader,
+                    dateFormatter = dateFormatter
+            )
 
     override fun getItemCount(): Int = articleList.size
 

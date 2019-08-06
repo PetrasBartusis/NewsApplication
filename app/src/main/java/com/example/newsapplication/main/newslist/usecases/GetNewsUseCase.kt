@@ -6,7 +6,7 @@ import javax.inject.Inject
 class GetNewsUseCase @Inject constructor(
         private val newListRepository: NewsRepository
 ) {
-    fun getNewsList() = newListRepository.getNews()
+    fun getNewsList() = newListRepository.getArticlesList()
 
     fun getArticles() = newListRepository.getArticlesFromDatabase()
 }

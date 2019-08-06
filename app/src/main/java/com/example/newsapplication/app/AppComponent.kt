@@ -5,6 +5,7 @@ import com.example.newsapplication.utils.activity.ActivitiesModule
 import com.example.newsapplication.utils.dagger.DaggerScope
 import com.example.newsapplication.utils.network.NetworkModule
 import com.example.newsapplication.utils.scheduler.SchedulerModule
+import com.example.newsapplication.utils.storage.DatabaseModule
 import com.example.newsapplication.utils.storage.RepositoriesModule
 import com.example.newsapplication.utils.viewmodel.ViewModelModule
 import dagger.Component
@@ -21,6 +22,7 @@ import dagger.android.support.AndroidSupportInjectionModule
         ActivitiesModule::class,
         AndroidSupportInjectionModule::class,
         NetworkModule::class,
+        DatabaseModule::class,
         RepositoriesModule::class
     ]
 )

@@ -1,7 +1,6 @@
 package com.example.newsapplication.main.newslist
 
 import com.example.newsapplication.main.entities.Article
-import com.example.newsapplication.main.entities.News
 import com.example.newsapplication.utils.factory.ArticleFactory
 import com.example.newsapplication.utils.network.NewsService
 import com.example.newsapplication.utils.storage.NewsDataSource
@@ -13,7 +12,7 @@ class DefaultNewsRepository @Inject constructor(
     private val newsDataSource: NewsDataSource,
     private val articleFactory: ArticleFactory
 ) : NewsRepository {
-    override fun getNews(): Single<News> {
+    override fun getArticlesList(): Single<List<Article>> {
         return newsService.getNews()
     }
 

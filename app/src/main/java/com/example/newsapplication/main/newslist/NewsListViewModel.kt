@@ -13,14 +13,17 @@ class NewsListViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsUseCase,
     private val setNewsUseCase: SetNewsUseCase
 ) : BaseViewModel() {
-    private val articleList = MutableLiveData<List<Article>>()
-    private val message = SingleLiveData<String>()
+    private val articleList = SingleLiveData<List<Article>>()
+    private val errorMessage = SingleLiveData<String>()
+    private val connectionErrorMessage = SingleLiveData<Unit>()
     private val startRefreshing = MutableLiveData<Unit>()
     private val stopRefreshing = MutableLiveData<Unit>()
 
-    fun getArticleList(): LiveData<List<Article>> = articleList
+    fun getArticleList(): SingleLiveData<List<Article>> = articleList
 
-    fun showErrorMessage(): LiveData<String> = message
+    fun showErrorMessage(): SingleLiveData<String> = errorMessage
+
+    fun showConnectionErrorMessage(): SingleLiveData<Unit> = connectionErrorMessage
 
     fun startRefreshing(): LiveData<Unit> = startRefreshing
 
@@ -42,11 +45,17 @@ class NewsListViewModel @Inject constructor(
                 stopRefreshing.postValue(Unit)
             }, { error ->
                 stopRefreshing.postValue(Unit)
-                message.postValue(error.message)
+                errorMessage.postValue(error.message)
             })
         }, { error ->
-            message.postValue(error.message)
-            stopRefreshing.postValue(Unit)
+            getNewsUseCase.getArticles().subscribe({ articles ->
+                stopRefreshing.postValue(Unit)
+                articleList.postValue(articles)
+                connectionErrorMessage.postValue(Unit)
+            }, {
+                errorMessage.postValue(error.message)
+                stopRefreshing.postValue(Unit)
+            })
         }).attachToViewModel()
     }
 }

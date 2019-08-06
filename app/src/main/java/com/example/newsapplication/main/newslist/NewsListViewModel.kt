@@ -3,12 +3,15 @@ package com.example.newsapplication.main.newslist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapplication.main.entities.Article
+import com.example.newsapplication.main.newslist.usecases.GetNewsUseCase
+import com.example.newsapplication.main.newslist.usecases.SetNewsUseCase
 import com.example.newsapplication.utils.viewmodel.BaseViewModel
 import com.example.newsapplication.utils.viewmodel.SingleLiveData
 import javax.inject.Inject
 
 class NewsListViewModel @Inject constructor(
-        private val getNewsUseCase: GetNewsUseCase
+    private val getNewsUseCase: GetNewsUseCase,
+    private val setNewsUseCase: SetNewsUseCase
 ) : BaseViewModel() {
     private val articleList = MutableLiveData<List<Article>>()
     private val message = SingleLiveData<String>()
@@ -35,7 +38,12 @@ class NewsListViewModel @Inject constructor(
     private fun loadNewsList() {
         getNewsUseCase.getNewsList().subscribe({ news ->
             articleList.postValue(news.articles)
-            stopRefreshing.postValue(Unit)
+            setNewsUseCase.setNews(news).subscribe({
+                stopRefreshing.postValue(Unit)
+            }, { error ->
+                stopRefreshing.postValue(Unit)
+                message.postValue(error.message)
+            })
         }, { error ->
             message.postValue(error.message)
             stopRefreshing.postValue(Unit)

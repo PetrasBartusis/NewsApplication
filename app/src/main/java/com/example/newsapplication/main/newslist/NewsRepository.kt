@@ -5,4 +5,5 @@ import io.reactivex.Single
 
 interface NewsRepository {
     fun getNews(): Single<News>
+    fun setNews(news: News): Single<List<Long>>
 }

@@ -36,12 +36,17 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
         viewModel.showErrorMessage().observe(requireActivity()::showMessage)
         viewModel.startRefreshing().observe(::startRefreshing)
         viewModel.stopRefreshing().observe(::stopRefreshing)
+        viewModel.showConnectionErrorMessage().observe(::showConnectionError)
         swipeRefreshLayout.setOnRefreshListener(this)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = articleAdapter
         }
         setUpToolbar()
+    }
+
+    private fun showConnectionError(unit: Unit) {
+        requireActivity().showMessage(R.string.error_connection)
     }
 
     private fun setUpToolbar() {

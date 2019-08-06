@@ -3,8 +3,6 @@ package com.example.newsapplication.utils.activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.newsapplication.main.MainActivity
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 
 fun FragmentActivity.openFragment(containerId: Int, fragment: Fragment, addToBackStack: Boolean) {
     val transaction = supportFragmentManager.beginTransaction()
@@ -19,4 +17,8 @@ fun FragmentActivity.openFragment(containerId: Int, fragment: Fragment, addToBac
 
 fun FragmentActivity.showMessage(message: String) {
     (this as MainActivity).showMessage(message)
+}
+
+fun FragmentActivity.showMessage(messageResId: Int) {
+    (this as MainActivity).showMessage(getString(messageResId))
 }

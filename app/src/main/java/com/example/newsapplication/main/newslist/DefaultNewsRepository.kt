@@ -5,7 +5,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class DefaultNewsRepository @Inject constructor(
-    private val newsDao: NewsDao
+    private val newsService: NewsService
 ) : NewsRepository {
-    override fun getNews(): Single<News> = newsDao.getNews()
+    override fun getNews(): Single<News> = newsService.getNews()
 }

@@ -7,7 +7,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import javax.inject.Inject
 
-class NewsDao @Inject constructor(
+class NewsService @Inject constructor(
     private val newsApi: NewsApi,
     @IOScheduler private val sheduler: Scheduler
 ) {

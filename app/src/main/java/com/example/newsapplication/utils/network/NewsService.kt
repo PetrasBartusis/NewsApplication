@@ -1,7 +1,6 @@
-package com.example.newsapplication.main.newslist
+package com.example.newsapplication.utils.network
 
 import com.example.newsapplication.main.entities.News
-import com.example.newsapplication.utils.network.NewsApi
 import com.example.newsapplication.utils.scheduler.IOScheduler
 import io.reactivex.Scheduler
 import io.reactivex.Single

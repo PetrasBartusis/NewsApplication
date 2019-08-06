@@ -1,5 +1,6 @@
 package com.example.newsapplication.main.newslist
 
+import com.example.newsapplication.main.entities.Article
 import com.example.newsapplication.main.entities.News
 import com.example.newsapplication.utils.factory.ArticleFactory
 import com.example.newsapplication.utils.network.NewsService
@@ -14,6 +15,12 @@ class DefaultNewsRepository @Inject constructor(
 ) : NewsRepository {
     override fun getNews(): Single<News> {
         return newsService.getNews()
+    }
+
+    override fun getArticlesFromDatabase(): Single<List<Article>> {
+        return newsDataSource.getNews().map { databaseArticles ->
+            articleFactory.getArticles(databaseArticles)
+        }
     }
 
     override fun setNews(news: News) = newsDataSource.setNews(

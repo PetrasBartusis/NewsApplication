@@ -23,7 +23,7 @@ class DefaultNewsRepository @Inject constructor(
         }
     }
 
-    override fun setNews(news: News) = newsDataSource.setNews(
-        articleFactory.getDatabaseArticles(news)
+    override fun setArticles(articles: List<Article>) = newsDataSource.setNews(
+        articleFactory.getDatabaseArticles(articles)
     )
 }

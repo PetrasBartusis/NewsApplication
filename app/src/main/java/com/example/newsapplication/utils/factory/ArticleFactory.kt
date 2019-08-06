@@ -7,8 +7,8 @@ import com.example.newsapplication.utils.storage.entities.DatabaseArticle
 import javax.inject.Inject
 
 class ArticleFactory @Inject constructor() {
-    fun getDatabaseArticles(news: News): List<DatabaseArticle> {
-        return news.articles.map {
+    fun getDatabaseArticles(articles: List<Article>): List<DatabaseArticle> {
+        return articles.map {
             DatabaseArticle(
                 author = it.author,
                 title = it.title,

@@ -41,7 +41,7 @@ class NewsListViewModel @Inject constructor(
     private fun loadNewsList() {
         getNewsUseCase.getNewsList().subscribe({ news ->
             articleList.postValue(news.articles)
-            setNewsUseCase.setNews(news).subscribe({
+            setNewsUseCase.setArticles(news.articles).subscribe({
                 stopRefreshing.postValue(Unit)
             }, { error ->
                 stopRefreshing.postValue(Unit)

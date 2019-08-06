@@ -1,5 +1,6 @@
-package com.example.newsapplication.main.newslist
+package com.example.newsapplication.main.newslist.usecases
 
+import com.example.newsapplication.main.newslist.NewsRepository
 import javax.inject.Inject
 
 class GetNewsUseCase @Inject constructor(

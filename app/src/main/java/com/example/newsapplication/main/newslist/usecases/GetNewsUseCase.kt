@@ -7,4 +7,6 @@ class GetNewsUseCase @Inject constructor(
         private val newListRepository: NewsRepository
 ) {
     fun getNewsList() = newListRepository.getNews()
+
+    fun getArticles() = newListRepository.getArticlesFromDatabase()
 }

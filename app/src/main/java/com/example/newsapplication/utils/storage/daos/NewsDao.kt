@@ -2,6 +2,7 @@ package com.example.newsapplication.utils.storage.daos
 
 import androidx.room.*
 import com.example.newsapplication.utils.storage.entities.DatabaseArticle
+import io.reactivex.Observable
 import io.reactivex.Single
 
 @Dao
@@ -19,5 +20,5 @@ interface NewsDao {
     fun dropTable(): Single<Int>
 
     @Query("SELECT * FROM databasearticle")
-    fun getArticles(): Single<List<DatabaseArticle>>
+    fun getArticles(): Observable<List<DatabaseArticle>>
 }

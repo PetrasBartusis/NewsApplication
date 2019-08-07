@@ -17,7 +17,7 @@ class DefaultNewsRepository @Inject constructor(
         return newsService.getNews()
     }
 
-    override fun getArticlesFromDatabase(): Single<List<Article>> {
+    override fun getArticlesFromDatabase(): Observable<List<Article>> {
         return newsDataSource.getNews().map { databaseArticles ->
             articleFactory.getArticles(databaseArticles)
         }

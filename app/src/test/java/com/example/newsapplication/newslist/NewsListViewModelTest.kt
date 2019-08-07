@@ -9,6 +9,7 @@ import com.example.newsapplication.main.newslist.usecases.SetNewsUseCase
 import com.jraska.livedata.test
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.mock
+import io.reactivex.Observable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
@@ -34,7 +35,7 @@ class NewsListViewModelTest {
     @Test
     fun onCreated_loadInitialListInformation() {
         given(getNewsUseCase.getNewsList()).willReturn(
-            Single.just(articles)
+            Observable.just(articles)
         )
         given(setNewsUseCase.setArticles(articles)).willReturn(
             Single.just(listOf(0L))
@@ -50,7 +51,7 @@ class NewsListViewModelTest {
     @Test
     fun onCreated_loadInitialListInformation_setArticlesError() {
         given(getNewsUseCase.getNewsList()).willReturn(
-            Single.just(articles)
+            Observable.just(articles)
         )
         given(setNewsUseCase.setArticles(articles)).willReturn(
             Single.error(Exception("database error"))
@@ -67,7 +68,7 @@ class NewsListViewModelTest {
     @Test
     fun onCreated_loadNewsError_loadItemsFromDatabase() {
         given(getNewsUseCase.getNewsList()).willReturn(
-            Single.error(Exception("test error"))
+            Observable.error(Exception("test error"))
         )
         given(getNewsUseCase.getArticles()).willReturn(
             Single.just(articles)
@@ -84,7 +85,7 @@ class NewsListViewModelTest {
     @Test
     fun onCreated_loadNewsError_loadItemsFromDatabase_loadItemsError() {
         given(getNewsUseCase.getNewsList()).willReturn(
-            Single.error(Exception("test error"))
+            Observable.error(Exception("test error"))
         )
         given(getNewsUseCase.getArticles()).willReturn(
             Single.error(Exception("database error"))

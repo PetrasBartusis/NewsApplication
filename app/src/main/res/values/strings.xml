@@ -3,4 +3,5 @@
     <string name="toolbar_title_news_list">OnBoardingApp</string>
     <string name="error_connection">Connection Error! Last saved results are loaded.</string>
     <string name="content_description_article">Article Image</string>
+    <string name="button_link_to_full_article">Read Full Article Online</string>
 </resources>

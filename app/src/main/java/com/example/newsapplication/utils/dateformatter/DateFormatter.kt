@@ -9,10 +9,14 @@ class DateFormatter @Inject constructor() {
     private val startingFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
 
     fun getDateTimeFromDateString(dateToFormat: String): String? {
-        if(dateToFormat.isNotEmpty()){
+        if(dateToFormat.isNotEmpty() && dateToFormat.matchesStartingFormat()){
             val date = startingFormat.parse(dateToFormat)
             return dateTimeFormat.format(date)
         }
-        return ""
+        return dateToFormat
+    }
+
+    private fun String.matchesStartingFormat(): Boolean {
+        return this.matches(Regex("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z"))
     }
 }

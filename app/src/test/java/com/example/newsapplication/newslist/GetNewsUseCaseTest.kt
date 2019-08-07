@@ -33,6 +33,7 @@ class GetNewsUseCaseTest {
 
         getNewsUseCase.getNewsList()
             .test()
+            .assertResult(ArticlesMock.articles)
             .assertComplete()
     }
 
@@ -56,6 +57,7 @@ class GetNewsUseCaseTest {
 
         getNewsUseCase.getArticles()
             .test()
+            .assertResult(ArticlesMock.articles)
             .assertComplete()
     }
 

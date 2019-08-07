@@ -44,26 +44,29 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
         setUpToolbar()
     }
 
-    private fun showConnectionError(unit: Unit) {
-        requireActivity().showMessage(R.string.error_connection)
-    }
-
     private fun setUpToolbar() {
         toolbar.apply {
             setNavigationIcon(R.drawable.ic_menu)
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun startRefreshing(unit: Unit) {
         swipeRefreshLayout.isRefreshing = true
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun stopRefreshing(unit: Unit) {
         swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onRefresh() {
         viewModel.onRefreshCalled()
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private fun showConnectionError(unit: Unit) {
+        requireActivity().showMessage(R.string.error_connection)
     }
 
     companion object {

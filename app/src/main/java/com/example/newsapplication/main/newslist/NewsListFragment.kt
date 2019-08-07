@@ -17,7 +17,7 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
     lateinit var imageLoader: ImageLoader
 
     @Inject
-    lateinit var dataFormatter: DateFormatter
+    lateinit var dateFormatter: DateFormatter
 
     private val viewModel by viewModel<NewsListViewModel>()
 
@@ -25,9 +25,8 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
 
     private val articleAdapter by lazy {
         ArticleAdapter(
-                onClick = {},
                 imageLoader = imageLoader,
-                dateFormatter = dataFormatter
+                dateFormatter = dateFormatter
         )
     }
 

@@ -10,10 +10,6 @@ class ArticleViewModel @Inject constructor() : BaseViewModel() {
 
     fun openLink(): LiveData<String> = openLink
 
-    override fun onCreated() {
-        super.onCreated()
-    }
-
     fun onLinkClicked(url: String) {
         openLink.postValue(url)
     }

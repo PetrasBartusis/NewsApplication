@@ -1,8 +1,6 @@
 package com.example.newsapplication.newslist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.newsapplication.main.entities.Article
-import com.example.newsapplication.main.entities.Source
 import com.example.newsapplication.main.newslist.NewsListViewModel
 import com.example.newsapplication.main.newslist.usecases.GetNewsUseCase
 import com.example.newsapplication.main.newslist.usecases.SetNewsUseCase

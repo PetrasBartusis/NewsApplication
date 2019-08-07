@@ -13,13 +13,13 @@ class NewsListViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsUseCase,
     private val setNewsUseCase: SetNewsUseCase
 ) : BaseViewModel() {
-    private val articleList = SingleLiveData<List<Article>>()
+    private val articleList = MutableLiveData<List<Article>>()
     private val errorMessage = SingleLiveData<String>()
     private val connectionErrorMessage = SingleLiveData<Unit>()
     private val startRefreshing = MutableLiveData<Unit>()
     private val stopRefreshing = MutableLiveData<Unit>()
 
-    fun getArticleList(): SingleLiveData<List<Article>> = articleList
+    fun getArticleList(): MutableLiveData<List<Article>> = articleList
 
     fun showErrorMessage(): SingleLiveData<String> = errorMessage
 
@@ -30,6 +30,7 @@ class NewsListViewModel @Inject constructor(
     fun stopRefreshing(): LiveData<Unit> = stopRefreshing
 
     override fun onCreated() {
+        super.onCreated()
         startRefreshing.postValue(Unit)
         loadNewsList()
     }

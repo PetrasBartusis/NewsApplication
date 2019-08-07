@@ -9,7 +9,6 @@ import com.example.newsapplication.utils.dateformatter.DateFormatter
 import com.example.newsapplication.utils.images.ImageLoader
 
 class ArticleAdapter(
-        private val onClick: (article: Article) -> Unit,
         private val imageLoader: ImageLoader,
         private val dateFormatter: DateFormatter
 ) : RecyclerView.Adapter<ArticleViewHolder>() {
@@ -25,7 +24,6 @@ class ArticleAdapter(
             ArticleViewHolder(
                     itemView = LayoutInflater.from(viewGroup.context)
                             .inflate(R.layout.item_article, viewGroup, false),
-                    onClick = onClick,
                     imageLoader = imageLoader,
                     dateFormatter = dateFormatter
             )

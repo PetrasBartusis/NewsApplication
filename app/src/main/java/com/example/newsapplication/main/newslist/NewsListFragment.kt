@@ -25,7 +25,6 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
 
     private val articleAdapter by lazy {
         ArticleAdapter(
-                onClick = {},
                 imageLoader = imageLoader,
                 dateFormatter = dataFormatter
         )

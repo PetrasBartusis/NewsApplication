@@ -4,6 +4,7 @@ import com.example.newsapplication.main.entities.Article
 import com.example.newsapplication.utils.factory.ArticleFactory
 import com.example.newsapplication.utils.network.NewsService
 import com.example.newsapplication.utils.storage.NewsDataSource
+import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -12,7 +13,7 @@ class DefaultNewsRepository @Inject constructor(
     private val newsDataSource: NewsDataSource,
     private val articleFactory: ArticleFactory
 ) : NewsRepository {
-    override fun getArticlesList(): Single<List<Article>> {
+    override fun getArticlesList(): Observable<List<Article>> {
         return newsService.getNews()
     }
 

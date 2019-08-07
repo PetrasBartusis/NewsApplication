@@ -1,7 +1,9 @@
 package com.example.newsapplication.main.entities
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Article(
         val source: Source,
         val author: String?,
@@ -10,4 +12,4 @@ data class Article(
         val url: String,
         val urlToImage: String?,
         val publishedAt: String
-) : Serializable
+) : Parcelable

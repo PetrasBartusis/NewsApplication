@@ -2,4 +2,5 @@
     <string name="app_name">NewsApplication</string>
     <string name="toolbar_title_news_list">OnBoardingApp</string>
     <string name="error_connection">Connection Error! Last saved results are loaded.</string>
+    <string name="content_description_article">Article Image</string>
 </resources>

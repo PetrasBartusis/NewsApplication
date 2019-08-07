@@ -17,6 +17,6 @@ class DateFormatter @Inject constructor() {
     }
 
     private fun String.matchesStartingFormat(): Boolean {
-        return this.matches(Regex("[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z"))
+        return this.matches(Regex("[0-9]{4}-[0-9]{2}-[0-9]{2}[A-z][0-9]{2}:[0-9]{2}:[0-9]{2}[A-z]"))
     }
 }

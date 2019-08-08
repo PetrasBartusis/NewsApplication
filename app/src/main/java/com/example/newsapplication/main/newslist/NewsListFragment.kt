@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapplication.R
+import com.example.newsapplication.main.entities.Article
 import com.example.newsapplication.utils.activity.showMessage
 import com.example.newsapplication.utils.dateformatter.DateFormatter
 import com.example.newsapplication.utils.fragment.ViewModelFragment
@@ -31,17 +32,24 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.getArticleList().observe(articleAdapter::setArticleList)
+        viewModel.getArticleList().observe(::setListItems)
         viewModel.showErrorMessage().observe(requireActivity()::showMessage)
         viewModel.startRefreshing().observe(::startRefreshing)
         viewModel.stopRefreshing().observe(::stopRefreshing)
         viewModel.showConnectionErrorMessage().observe(::showConnectionError)
+        viewModel.emptyArticleList().observe(::showEmptyListView)
         swipeRefreshLayout.setOnRefreshListener(this)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = articleAdapter
         }
         setUpToolbar()
+    }
+
+    private fun setListItems(articles: List<Article>) {
+        articleAdapter.setArticleList(articles)
+        recyclerView.visibility = View.VISIBLE
+        emptyListTextView.visibility = View.GONE
     }
 
     private fun setUpToolbar() {
@@ -62,6 +70,12 @@ class NewsListFragment : ViewModelFragment(), SwipeRefreshLayout.OnRefreshListen
 
     override fun onRefresh() {
         viewModel.onRefreshCalled()
+    }
+
+    @Suppress("UNUSED_PARAMETER")
+    private fun showEmptyListView(unit: Unit) {
+        recyclerView.visibility = View.GONE
+        emptyListTextView.visibility = View.VISIBLE
     }
 
     @Suppress("UNUSED_PARAMETER")

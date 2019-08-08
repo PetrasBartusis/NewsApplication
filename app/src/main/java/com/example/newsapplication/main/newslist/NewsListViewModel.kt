@@ -18,6 +18,7 @@ class NewsListViewModel @Inject constructor(
     private val connectionErrorMessage = SingleLiveData<Unit>()
     private val startRefreshing = MutableLiveData<Unit>()
     private val stopRefreshing = MutableLiveData<Unit>()
+    private val emptyArticleList = SingleLiveData<Unit>()
 
     fun getArticleList(): MutableLiveData<List<Article>> = articleList
 
@@ -29,6 +30,8 @@ class NewsListViewModel @Inject constructor(
 
     fun stopRefreshing(): LiveData<Unit> = stopRefreshing
 
+    fun emptyArticleList(): SingleLiveData<Unit> = emptyArticleList
+
     override fun onCreated() {
         super.onCreated()
         startRefreshing.postValue(Unit)
@@ -36,27 +39,46 @@ class NewsListViewModel @Inject constructor(
     }
 
     fun onRefreshCalled() {
+        // clear disposables that have been attached before loading news list
+        onCleared()
         loadNewsList()
     }
 
     private fun loadNewsList() {
-        getNewsUseCase.getNewsList().subscribe({ articles ->
-            articleList.postValue(articles)
-            setNewsUseCase.setArticles(articles).subscribe({
+        getNewsUseCase.getNewsList()
+            .subscribe({ articles ->
+                setArticles(articles)
+                articleList.postValue(articles)
+                setArticles(articles)
+            }, { error ->
+                getArticlesFromDatabase()
+                errorMessage.postValue(error.message)
+            }).attachToViewModel()
+    }
+
+    private fun getArticlesFromDatabase() {
+        getNewsUseCase.getArticles()
+            .subscribe({ articles ->
+                stopRefreshing.postValue(Unit)
+                if (articles.isNotEmpty()) {
+                    articleList.postValue(articles)
+                } else {
+                    emptyArticleList.postValue(Unit)
+                }
+                connectionErrorMessage.postValue(Unit)
+            }, { error ->
+                errorMessage.postValue(error.message)
+                stopRefreshing.postValue(Unit)
+            }).attachToViewModel()
+    }
+
+    private fun setArticles(articles: List<Article>) {
+        setNewsUseCase.setArticles(articles)
+            .subscribe({
                 stopRefreshing.postValue(Unit)
             }, { error ->
                 stopRefreshing.postValue(Unit)
                 errorMessage.postValue(error.message)
-            })
-        }, { error ->
-            getNewsUseCase.getArticles().subscribe({ articles ->
-                stopRefreshing.postValue(Unit)
-                articleList.postValue(articles)
-                connectionErrorMessage.postValue(Unit)
-            }, {
-                errorMessage.postValue(error.message)
-                stopRefreshing.postValue(Unit)
-            })
-        }).attachToViewModel()
+            }).attachToViewModel()
     }
 }

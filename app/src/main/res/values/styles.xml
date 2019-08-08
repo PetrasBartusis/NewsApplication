@@ -11,4 +11,8 @@
     <style name="HiddenToolbarTitle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@android:color/transparent</item>
     </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>

@@ -9,12 +9,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Make sure this is before calling super.onCreate
-        setTheme(R.style.AppTheme)
+        setTheme(R.style.AppThesefhabwefkme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
 
-    fun showMessage(message: String) {
-        Snackbar.make(container, message, Snackbar.LENGTH_LONG).show()
+    fun tests() : Int {
+        return 3 + 5
     }
 }
